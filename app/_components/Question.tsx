@@ -10,7 +10,7 @@ interface Props {
 const Question = ({ text, route }: Props) => {
   return (
     <Description className="flex justify-center gap-1 mt-3">
-      {text} <Link href={route} className="font-bold">{route}</Link>
+      {text} <Link href={route.toLowerCase().split(" ").join("-")} className="font-bold">{route}</Link>
     </Description>
   );
 };

@@ -8,12 +8,13 @@ import { Br } from "@/app/styles/tags";
 import Image from "next/image";
 import Item from "@/app/_components/FormItem";
 import Question from "@/app/_components/Question";
+import Link from "next/link";
 
 type UI = { variant: "filled" | "outlined" | "borderless" };
 
 const ui: UI = { variant: "filled" };
 
-const Register = () => {
+const Login = () => {
   const [isImageLoading, setImageLoading] = useState<boolean>(true);
 
   const finish = (event: FormEvent<HTMLFormElement>) => {
@@ -34,17 +35,17 @@ const Register = () => {
         <Form onFinish={finish} layout="vertical">
           <Br from="bottom">
             <Title>Wellcome!</Title>
-            <Description>Please enter sign up details below</Description>
+            <Description>Please enter log in details below</Description>
           </Br>
-          <Item name="username" node={<Input {...ui} />} />
           <Item name="email" node={<Input {...ui} />} isEmail />
           <Item name="password" node={<Input.Password {...ui} />} isPsw />
-          <Item node={<Button htmlType="submit">Sign Up</Button>} />
+          <Link href={"/forget-password"} className="flex justify-end">Forget password?</Link>
+          <Item node={<Button htmlType="submit">Log In</Button>} />
           <Divider>
             <Description>or continue</Description>
           </Divider>
           <Button icon={<Image alt="." src={GoogleLogo} />}>
-            Sign Up with Google
+            Log In with Google
           </Button>
           <Question text="Don't have an accaunt?" route="Sign Up" />
         </Form>
@@ -53,4 +54,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Login;
