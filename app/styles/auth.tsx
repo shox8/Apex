@@ -1,11 +1,15 @@
 import styled from "styled-components";
-import { Background } from "./extentions";
+import { Background, Center } from "./extentions";
 
 export const AuthBlock = styled(Background)`
   height: 100dvh;
   display: grid;
-  gap: 20px;
+  gap: 10px;
   grid-template-columns: repeat(2, 1fr);
+  background-color: #eceded;
+  @media screen and (max-width: 650px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;
 
 export const AuthImageBox = styled.div`
@@ -25,7 +29,40 @@ export const AuthImageBox = styled.div`
   }
 `;
 
-export const AuthFormBox = styled.div`
+export const AuthFormBox = styled(Center)`
+  form {
+    background-color: #ffffff;
+    padding: 25px 30px;
+    width: 350px;
+    border-radius: 20px;
+    .ant-form-item:has(button) {
+      margin-bottom: 0;
+    }
+    div > input,
+    .ant-input-password {
+      height: 40px;
+      border-radius: 10px;
+    }
+    button {
+      width: 100%;
+      height: 45px;
+      border-radius: 10px;
+    }
+    button[type="submit"] {
+      background-color: #161313;
+      color: #ffffff;
+      margin-top: 10px;
+    }
+    button[type="button"] img {
+      height: 20px;
+      width: 20px;
+    }
+  }
   @media screen and (max-width: 650px) {
+  }
+  @media screen and (max-width: 450px) {
+    form {
+      width: 100%;
+    }
   }
 `;

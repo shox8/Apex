@@ -3,13 +3,13 @@ import { Form } from "antd";
 import { Rule } from "antd/es/form";
 
 interface Props {
-  element: ReactNode;
+  node: ReactNode;
   name?: string;
   isPsw?: boolean;
   isEmail?: boolean;
 }
 
-const FormItem = ({ name, element, isPsw, isEmail }: Props) => {
+const FormItem = ({ name, node, isPsw, isEmail }: Props) => {
   let rules: Rule[] = [{ required: true, message: `Please enter ${name}.` }];
 
   if (isPsw) {
@@ -26,7 +26,7 @@ const FormItem = ({ name, element, isPsw, isEmail }: Props) => {
       label={name ? name.charAt(0).toUpperCase() + name.slice(1) : undefined}
       rules={rules}
     >
-      {element}
+      {node}
     </Form.Item>
   );
 };

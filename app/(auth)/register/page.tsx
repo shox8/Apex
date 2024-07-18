@@ -1,27 +1,30 @@
 "use client";
-import React, { useState } from "react";
+import React, { FormEvent, useState } from "react";
 import { AuthBlock, AuthFormBox, AuthImageBox } from "@/app/styles/auth";
-import { Title } from "@/app/styles/text";
-import { Button, Form, Input } from "antd";
+import { Description, Title } from "@/app/styles/text";
+import { Button, Divider, Form, Input } from "antd";
+import { AuthWallpaper, GoogleLogo } from "../../../public";
+import { Br } from "@/app/styles/tags";
 import Image from "next/image";
-import AuthWallpaper from "../../../public/auth-wallpaper.jpg";
 import Item from "@/app/_components/FormItem";
+import Question from "@/app/_components/Question";
 
-const data = {
-  title: "Register",
-  formBtn: "Submit",
-};
+type UI = { variant: "filled" | "outlined" | "borderless" };
+
+const ui: UI = { variant: "filled" };
 
 const Register = () => {
   const [isImageLoading, setImageLoading] = useState<boolean>(true);
 
-  const finish = () => {};
+  const finish = (event: FormEvent<HTMLFormElement>) => {
+    console.log(event);
+  };
 
   return (
     <AuthBlock>
       <AuthImageBox>
         <Image
-          alt="Wallpaper"
+          alt="."
           src={AuthWallpaper}
           onLoad={() => setImageLoading(false)}
           className={isImageLoading ? "blur" : ""}
@@ -29,11 +32,21 @@ const Register = () => {
       </AuthImageBox>
       <AuthFormBox>
         <Form onFinish={finish} layout="vertical">
-          <Title>{data.title}</Title>
-          <Item name="username" element={<Input />} />
-          <Item name="email" element={<Input />} isEmail />
-          <Item name="password" element={<Input.Password />} isPsw />
-          <Item element={<Button htmlType="submit">{data.formBtn}</Button>} />
+          <Br from="bottom">
+            <Title>Wellcome!</Title>
+            <Description>Please enter sign up details below</Description>
+          </Br>
+          <Item name="username" node={<Input {...ui} />} />
+          <Item name="email" node={<Input {...ui} />} isEmail />
+          <Item name="password" node={<Input.Password {...ui} />} isPsw />
+          <Item node={<Button htmlType="submit">Sign Up</Button>} />
+          <Divider>
+            <Description>or continue</Description>
+          </Divider>
+          <Button icon={<Image alt="." src={GoogleLogo} />}>
+            Sign Up with Google
+          </Button>
+          <Question text="Don't have an accaunt?" route="Sign Up" />
         </Form>
       </AuthFormBox>
     </AuthBlock>

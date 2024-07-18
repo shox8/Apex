@@ -6,6 +6,12 @@ export const Background = styled.div`
   padding: 10px;
 `;
 
+export const Center = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 export const Card = styled.div``;
 
 export const Text = styled.text``;
