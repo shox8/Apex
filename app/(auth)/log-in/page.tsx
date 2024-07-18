@@ -4,7 +4,7 @@ import { AuthBlock, AuthFormBox, AuthImageBox } from "@/app/styles/auth";
 import { Description, Title } from "@/app/styles/text";
 import { Button, Divider, Form, Input } from "antd";
 import { AuthWallpaper, GoogleLogo } from "../../../public";
-import { Br } from "@/app/styles/tags";
+import { Br } from "@/app/styles/ui";
 import Image from "next/image";
 import Item from "@/app/_components/FormItem";
 import Question from "@/app/_components/Question";
