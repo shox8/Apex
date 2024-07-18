@@ -14,7 +14,6 @@
     "component:headless": "cypress run --component"
   },
   "dependencies": {
-    "framer-motion": "^11.3.6",
     "next": "14.2.5",
     "react": "^18",
     "react-dom": "^18"
@@ -29,8 +28,9 @@
     "eslint": "^8",
     "eslint-config-next": "14.2.5",
     "firebase": "^10.12.3",
+    "framer-motion": "^11.3.6",
     "postcss": "^8",
-    "redux": "^5.0.1",
+    "react-redux": "^9.1.2",
     "sass": "^1.77.8",
     "styled-components": "^6.1.11",
     "tailwindcss": "^3.4.1",
