@@ -1,4 +1,4 @@
-import { current, signUp } from "@/lib/services/auth";
+import { logIn, signUp } from "@/lib/services/auth";
 import { User } from "@/lib/types";
 import { createSlice } from "@reduxjs/toolkit";
 import { message } from "antd";
@@ -23,7 +23,10 @@ const auth = createSlice({
         state.user = action.payload;
         message.success("Signed Up");
       })
-      .addMatcher(current.matchFulfilled, (state, action) => {});
+      .addMatcher(logIn.matchFulfilled, (state, action) => {
+        state.user = action.payload;
+        message.success("Logged In");
+      });
   },
 });
 

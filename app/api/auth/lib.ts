@@ -2,11 +2,13 @@ import { jwtVerify, SignJWT } from "jose";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
-const key = new TextEncoder().encode(process.env.AUTH_SECRET_KEY);
+export const secretKey = process.env.AUTH_SECRET_KEY;
 
-export const date = new Date(Date.now() + 5 * 1000000);
+export const date = new Date(Date.now() + 24 * 60 * 60 * 1000);
 
 export const cookieKey = "data";
+
+const key = new TextEncoder().encode(secretKey);
 
 export async function encrypt(payload: any) {
   return await new SignJWT(payload)

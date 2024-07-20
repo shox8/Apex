@@ -1,14 +1,19 @@
 "use client";
-import React, { FormEvent, useState } from "react";
-import { AuthBlock, AuthFormBox, AuthImageBox } from "@/app/styles/auth";
-import { Description, Title } from "@/app/styles/text";
-import { Button, Divider, Form, Input } from "antd";
-import { AuthWallpaper, GoogleLogo } from "../../../public";
-import { Br } from "@/app/styles/ui";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Item from "@/app/_components/FormItem";
 import Question from "@/app/_components/Question";
 import Link from "next/link";
+import { AuthBlock, AuthFormBox, AuthImageBox } from "@/app/styles/auth";
+import { Description, Title } from "@/app/styles/text";
+import { Button, Divider, Form, Input, message } from "antd";
+import { AuthWallpaper, GoogleLogo } from "../../../public";
+import { Br } from "@/app/styles/ui";
+import { useLogInMutation } from "@/lib/services/auth";
+import { useRouter } from "next/navigation";
+import { isError } from "@/app/_utils";
+import { User } from "@/lib/types";
+import { JointContent } from "antd/es/message/interface";
 
 type UI = { variant: "filled" | "outlined" | "borderless" };
 
@@ -16,9 +21,16 @@ const ui: UI = { variant: "filled" };
 
 const Login = () => {
   const [isImageLoading, setImageLoading] = useState<boolean>(true);
+  const [logIn, { isLoading, error }] = useLogInMutation();
+  const path = useRouter();
 
-  const finish = (event: FormEvent<HTMLFormElement>) => {
-    console.log(event);
+  useEffect(() => {
+    if (isError(error)) return message.error(error.data as JointContent);
+  }, [error]);
+
+  const finish = async (event: User) => {
+    await logIn(event).unwrap();
+    path.push("/");
   };
 
   return (
@@ -39,8 +51,16 @@ const Login = () => {
           </Br>
           <Item name="email" node={<Input {...ui} />} isEmail />
           <Item name="password" node={<Input.Password {...ui} />} isPsw />
-          <Link href={"/forget-password"} className="flex justify-end">Forget password?</Link>
-          <Item node={<Button htmlType="submit">Log In</Button>} />
+          <Link href={"/forget-password"} className="flex justify-end">
+            Forget password?
+          </Link>
+          <Item
+            node={
+              <Button htmlType="submit" loading={isLoading}>
+                Log In
+              </Button>
+            }
+          />
           <Divider>
             <Description>or continue</Description>
           </Divider>

@@ -1,7 +1,7 @@
 import { User } from "../types";
 import { api } from "../api";
 
-export type UserData = Omit<User, "id">;
+export type UserData = Omit<User, "id" | "photo" | "username">;
 type ResponseLoginData = User;
 
 export const authApi = api.injectEndpoints({
@@ -13,14 +13,15 @@ export const authApi = api.injectEndpoints({
         body: userData,
       }),
     }),
-    current: builder.query<ResponseLoginData, void>({
-      query: (id) => ({
-        url: `/users/${id}`,
-        method: "GET",
+    logIn: builder.mutation<ResponseLoginData, UserData>({
+      query: (userData) => ({
+        url: "/auth/log-in",
+        method: "POST",
+        body: userData,
       }),
     }),
   }),
 });
 
-export const { useSignUpMutation, useCurrentQuery } = authApi;
-export const { signUp, current } = authApi.endpoints;
+export const { useSignUpMutation, useLogInMutation } = authApi;
+export const { signUp, logIn } = authApi.endpoints;
