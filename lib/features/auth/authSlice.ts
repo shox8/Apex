@@ -1,18 +1,15 @@
-import { authApi } from "@/lib/services/auth";
+import { current, signUp } from "@/lib/services/auth";
 import { User } from "@/lib/types";
 import { createSlice } from "@reduxjs/toolkit";
+import { message } from "antd";
 
 interface InitialState {
   user: User | null;
-  isAuthenticated: boolean;
 }
 
 const initialState: InitialState = {
   user: null,
-  isAuthenticated: false,
 };
-
-const ends = authApi.endpoints;
 
 const auth = createSlice({
   name: "auth",
@@ -22,8 +19,11 @@ const auth = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addMatcher(ends.register.matchFulfilled, (state, action) => {})
-      .addMatcher(ends.current.matchFulfilled, (state, action) => {});
+      .addMatcher(signUp.matchFulfilled, (state, action) => {
+        state.user = action.payload;
+        message.success("Signed Up");
+      })
+      .addMatcher(current.matchFulfilled, (state, action) => {});
   },
 });
 
