@@ -24,7 +24,7 @@ const Register = () => {
   const path = useRouter();
 
   useEffect(() => {
-    if (isError(error)) return message.error(error?.data as JointContent);
+    if (isError(error)) return message.error(error.data as JointContent);
   }, [error]);
 
   const finish = async (event: User) => {
