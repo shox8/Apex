@@ -23,8 +23,6 @@ export async function POST(request: NextRequest) {
 
     const session = await encrypt({ user, date });
 
-    const salt = bcrypt()
-
     const hashedPassword = await bcrypt.hash(user.password, 10);
 
     const readyUser = { ...user, password: hashedPassword };

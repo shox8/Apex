@@ -23,19 +23,17 @@ export async function POST(request: NextRequest) {
       return NextResponse.json("Account is not exist!", { status: 404 });
     }
 
-    const result = await bcrypt.compare(
-      user.password,
-      users.forEach((e) => e.data().password)
-    );
-    console.log(result);
+    const userData = users.docs[0].data();
 
-    const readyUser = { ...user, password: "password" };
+    const result = await bcrypt.compare(user.password, userData.password);
 
-    await addDoc(collection(db, "users"), readyUser);
+    if (!result) return;
 
     cookies().set(cookieKey, session, { expires: date, httpOnly: true });
 
-    return NextResponse.json(readyUser);
+    delete userData.password;
+
+    return NextResponse.json({ ...userData, id: users.docs[0].id });
   } catch (error) {
     return NextResponse.json(error, { status: 500 });
   }
