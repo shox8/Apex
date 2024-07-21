@@ -8,10 +8,7 @@ import { Description, Title } from "@/app/styles/text";
 import { Button, Divider, Form, Input, message } from "antd";
 import { AuthWallpaper, GoogleLogo } from "../../../public";
 import { Br } from "@/app/styles/ui";
-import {
-  useSignUpMutation,
-  useSignUpWithGoogleMutation,
-} from "@/lib/services/auth";
+import { useSignUpMutation } from "@/lib/services/auth";
 import { User } from "@/lib/types";
 import { useRouter } from "next/navigation";
 import { isError } from "@/app/_utils";
@@ -24,7 +21,6 @@ const ui: UI = { variant: "filled" };
 const SignUp = () => {
   const [isImageLoading, setImageLoading] = useState<boolean>(true);
   const [signUp, { isLoading, error }] = useSignUpMutation();
-  const [signUpWithGoogle] = useSignUpWithGoogleMutation();
   const path = useRouter();
 
   useEffect(() => {
@@ -37,7 +33,6 @@ const SignUp = () => {
   };
 
   const popUp = async () => {
-    await signUpWithGoogle().unwrap();
     path.push("/");
   };
 
