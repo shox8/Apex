@@ -13,10 +13,9 @@ import { User } from "@/lib/types";
 import { useRouter } from "next/navigation";
 import { isError } from "@/app/_utils";
 import { JointContent } from "antd/es/message/interface";
+import { Variant } from "antd/es/config-provider";
 
-type UI = { variant: "filled" | "outlined" | "borderless" };
-
-const ui: UI = { variant: "filled" };
+const ui: { variant: Variant } = { variant: "filled" };
 
 const SignUp = () => {
   const [isImageLoading, setImageLoading] = useState<boolean>(true);
