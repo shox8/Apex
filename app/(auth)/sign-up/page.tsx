@@ -32,6 +32,7 @@ const SignUp = () => {
   };
 
   const popUp = async () => {
+    
     path.push("/");
   };
 

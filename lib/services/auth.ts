@@ -19,8 +19,18 @@ export const authApi = api.injectEndpoints({
         body: userData,
       }),
     }),
+    logInWithGoogle: builder.mutation<UserData, void>({
+      query: () => ({
+        url: "/auth/log-in-with-google",
+        method: "POST",
+      }),
+    }),
   }),
 });
 
-export const { useSignUpMutation, useLogInMutation } = authApi;
-export const { signUp, logIn } = authApi.endpoints;
+export const {
+  useSignUpMutation,
+  useLogInMutation,
+  useLogInWithGoogleMutation,
+} = authApi;
+export const { signUp, logIn, logInWithGoogle } = authApi.endpoints;
