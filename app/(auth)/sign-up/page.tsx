@@ -8,7 +8,10 @@ import { Description, Title } from "@/app/styles/text";
 import { Button, Divider, Form, Input, message } from "antd";
 import { AuthWallpaper, GoogleLogo } from "../../../public";
 import { Br } from "@/app/styles/ui";
-import { useSignUpMutation } from "@/lib/services/auth";
+import {
+  useSignUpMutation,
+  useSignUpWithGoogleMutation,
+} from "@/lib/services/auth";
 import { User } from "@/lib/types";
 import { useRouter } from "next/navigation";
 import { isError } from "@/app/_utils";
@@ -18,9 +21,10 @@ type UI = { variant: "filled" | "outlined" | "borderless" };
 
 const ui: UI = { variant: "filled" };
 
-const Register = () => {
+const SignUp = () => {
   const [isImageLoading, setImageLoading] = useState<boolean>(true);
   const [signUp, { isLoading, error }] = useSignUpMutation();
+  const [signUpWithGoogle] = useSignUpWithGoogleMutation();
   const path = useRouter();
 
   useEffect(() => {
@@ -29,6 +33,11 @@ const Register = () => {
 
   const finish = async (event: User) => {
     await signUp(event).unwrap();
+    path.push("/");
+  };
+
+  const popUp = async () => {
+    await signUpWithGoogle().unwrap();
     path.push("/");
   };
 
@@ -61,8 +70,12 @@ const Register = () => {
           <Divider>
             <Description>or continue</Description>
           </Divider>
-          <Button icon={<Image alt="." src={GoogleLogo} />} loading={false}>
-            Sign Up with Google
+          <Button
+            icon={<Image alt="." src={GoogleLogo} />}
+            loading={false}
+            onClick={popUp}
+          >
+            Continue with Google
           </Button>
           <Question text="Already have an accaunt?" route="Log In" />
         </Form>
@@ -71,4 +84,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default SignUp;

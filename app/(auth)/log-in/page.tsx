@@ -19,7 +19,7 @@ type UI = { variant: "filled" | "outlined" | "borderless" };
 
 const ui: UI = { variant: "filled" };
 
-const Login = () => {
+const LogIn = () => {
   const [isImageLoading, setImageLoading] = useState<boolean>(true);
   const [logIn, { isLoading, error }] = useLogInMutation();
   const path = useRouter();
@@ -65,7 +65,7 @@ const Login = () => {
             <Description>or continue</Description>
           </Divider>
           <Button icon={<Image alt="." src={GoogleLogo} />}>
-            Log In with Google
+            Continue with Google
           </Button>
           <Question text="Don't have an accaunt?" route="Sign Up" />
         </Form>
@@ -74,4 +74,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LogIn;
